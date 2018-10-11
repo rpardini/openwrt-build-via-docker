@@ -18,7 +18,7 @@ RUN sudo -iu buildman bash -c "openwrt-project/scripts/feeds install -a"
 #RUN sudo -iu buildman bash -c "cd openwrt-project && make menuconfig || true"
 
 # This is the actual config file to use
-ADD confg-c7v2 /openwrt/openwrt-project/.config
+ADD config-wndr3700v3 /openwrt/openwrt-project/.config
 RUN chown buildman /openwrt/openwrt-project/.config
 RUN sudo -iu buildman bash -c "cat /openwrt/openwrt-project/.config | grep -v \"^#\" | grep -v \"^$\" "
 RUN sudo -iu buildman bash -c "cd openwrt-project && make defconfig"
