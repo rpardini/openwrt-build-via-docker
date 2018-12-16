@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:bionic
 ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-c"]
 
@@ -18,7 +18,7 @@ RUN sudo -iu buildman bash -c "openwrt-project/scripts/feeds install -a"
 #RUN sudo -iu buildman bash -c "cd openwrt-project && make menuconfig || true"
 
 # This is the actual config file to use
-ADD config-wndr3700v3 /openwrt/openwrt-project/.config
+ADD config-c7v2 /openwrt/openwrt-project/.config
 RUN chown buildman /openwrt/openwrt-project/.config
 RUN sudo -iu buildman bash -c "cat /openwrt/openwrt-project/.config | grep -v \"^#\" | grep -v \"^$\" "
 RUN sudo -iu buildman bash -c "cd openwrt-project && make defconfig"
@@ -38,9 +38,9 @@ WORKDIR /openwrt/openwrt-project
 # After builds are done, you can extract the binaries produced with
 # docker cp openwrtmine1:/openwrt/openwrt-project/bin bin
 
-# Stop and remove the container
-# docker rm --force openwrtmine1
-
 # After build is done, you can rebuild with different configs by doing:
 # docker run -it --name openwrtmine1 openwrtmine:latest bash -c "make menuconfig && make -j 5"
+
+# Stop and remove the container
+# docker rm --force openwrtmine1
 
